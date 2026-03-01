@@ -57,15 +57,39 @@ function App() {
           <div className="bg-slate-50 p-12 rounded-3xl border border-slate-200 text-center max-w-md w-full">
             <h2 className="text-2xl font-bold text-slate-900 mb-8">Institutional Gateway</h2>
             <div className="grid gap-3 w-full">
-              {wallets.map((w) => (
-                <button
-                  key={w.name}
-                  onClick={() => connect(w.name)}
-                  className="w-full py-4 bg-slate-900 text-white font-semibold rounded-xl hover:bg-black transition-colors"
-                >
-                  Connect {w.name}
-                </button>
-              ))}
+              {wallets && wallets.length > 0 ? (
+                wallets.map((w) => (
+                  <button
+                    key={w.name}
+                    onClick={() => connect(w.name)}
+                    className="w-full py-4 px-6 bg-slate-900 text-white font-semibold rounded-xl hover:bg-black transition-colors flex items-center justify-center gap-3"
+                  >
+                    {w.icon && (
+                      <img 
+                        src={w.icon} 
+                        alt={w.name} 
+                        className="w-6 h-6 rounded-full"
+                      />
+                    )}
+                    <span>Connect {w.name}</span>
+                  </button>
+                ))
+              ) : (
+                <div className="space-y-4">
+                  <p className="text-slate-600 text-sm">No wallet detected</p>
+                  <a
+                    href="https://petra.app/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block w-full py-4 bg-blue-600 text-white font-semibold rounded-xl hover:bg-blue-700 transition-colors"
+                  >
+                    Download Petra Wallet
+                  </a>
+                  <p className="text-xs text-slate-500">
+                    After installing, refresh this page to connect
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         </div>
